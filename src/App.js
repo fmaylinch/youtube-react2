@@ -8,15 +8,13 @@ class App extends Component {
     super(props)
 
     this.state = {
+      inputValue: "",
       videos: []
     }
-
-    this.initialize()
   }
 
-  initialize() {
+  search(query) {
     
-    const query = "radiohead"
     const url = "https://www.googleapis.com/youtube/v3/search?maxResults=10&part=snippet&q=" + query + "&key=AIzaSyAHVgKILCt2rW4X3BW_deRI4A2Ng3IIVgA"
   
     const promise = axios.get(url)
@@ -43,7 +41,19 @@ class App extends Component {
     console.log("render!")
 
     return (
-      <VideoList videos={this.state.videos} />
+      <div>
+        <input
+          onChange={ (event) => this.setState({inputValue: event.target.value}) }
+          value={this.state.inputValue}
+          />
+
+        <button
+          onClick={ (event) => { this.search(this.state.inputValue) }}>
+          Search
+        </button>
+
+        <VideoList videos={this.state.videos} />
+      </div>
     )
   }
 }
