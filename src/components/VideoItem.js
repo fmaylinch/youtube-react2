@@ -2,8 +2,6 @@ import React from 'react';
 
 const VideoItem = (props) => {
 
-    console.log("props received", props)
-
     return (
         <div> 
             <h1>{props.title}</h1>
