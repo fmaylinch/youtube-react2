@@ -1,20 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+// @flow
 
-const VideoItem = (props) => {
+import React from 'react';
+
+type Video = {
+    image: string,
+    title: string
+};
+
+type Props = {
+    video: Video
+};
+
+
+const VideoItem = (props: Props) => {
 
     return (
         <div> 
             <img src={props.video.image} alt={props.video.title} />
         </div>
     )
-}
-
-VideoItem.propTypes = {
-    video: PropTypes.shape({
-        image: PropTypes.string,
-        title: PropTypes.string
-    })
 }
 
 export default VideoItem;
