@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SearchForm from './components/SearchForm'
 import VideoList from './components/VideoList'
 import axios from 'axios'
 
@@ -8,7 +9,6 @@ class App extends Component {
     super(props)
 
     this.state = {
-      inputValue: "",
       videos: []
     }
   }
@@ -42,16 +42,7 @@ class App extends Component {
 
     return (
       <div>
-        <input
-          onChange={ (event) => this.setState({inputValue: event.target.value}) }
-          value={this.state.inputValue}
-          />
-
-        <button
-          onClick={ (event) => { this.search(this.state.inputValue) }}>
-          Search
-        </button>
-
+        <SearchForm onSearch={(value) => { this.search(value) }} />
         <VideoList videos={this.state.videos} />
       </div>
     )
