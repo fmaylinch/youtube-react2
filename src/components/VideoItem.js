@@ -1,16 +1,11 @@
 // @flow
 
 import React from 'react';
-
-type Video = {
-    image: string,
-    title: string
-};
+import type { Video } from './types'
 
 type Props = {
     video: Video
 };
-
 
 const VideoItem = (props: Props) => {
 
