@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchForm from './components/SearchForm'
+import MenuBar from './components/MenuBar'
 import VideoList from './components/VideoList'
 import axios from 'axios'
 
@@ -42,7 +42,7 @@ class App extends Component {
 
     return (
       <div>
-        <SearchForm onSearch={(value) => { this.search(value) }} />
+        <MenuBar onSearch={(value) => { this.search(value) }} />
         <VideoList videos={this.state.videos} />
       </div>
     )
