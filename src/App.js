@@ -1,11 +1,18 @@
+//@flow
+
 import React, { Component } from 'react';
 import MenuBar from './components/MenuBar'
 import VideoList from './components/VideoList'
+import type { Video } from './components/types'
 import axios from 'axios'
 
-class App extends Component {
+type State = {
+  videos: Array<Video>
+};
 
-  constructor(props) {
+class App extends Component<void, State> {
+
+  constructor(props: void) {
     super(props)
 
     this.state = {
@@ -13,7 +20,7 @@ class App extends Component {
     }
   }
 
-  search(query) {
+  search(query: string) {
     
     const url = "https://www.googleapis.com/youtube/v3/search?maxResults=10&part=snippet&q=" + query + "&key=AIzaSyAHVgKILCt2rW4X3BW_deRI4A2Ng3IIVgA"
   
@@ -49,7 +56,7 @@ class App extends Component {
 
     return (
       <div>
-        <MenuBar onSearch={(value) => { this.search(value) }} />
+        <MenuBar onSearch={(value: string) => { this.search(value) }} />
         <VideoList videos={this.state.videos} />
       </div>
     )
