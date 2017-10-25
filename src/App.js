@@ -6,6 +6,7 @@ import type { ContextRouter } from 'react-router-dom'
 import MenuBar from './components/MenuBar'
 import VideoList from './components/VideoList'
 import VideoPlayer from './components/VideoPlayer'
+import YoutubeUtil from './util/YoutubeUtil'
 import type { Video } from './components/types'
 import axios from 'axios'
 
@@ -36,17 +37,7 @@ class App extends Component<void, State> {
   
     promise.then(response => {
   
-      const items = response.data.items
-  
-      const videos = items
-        .filter(v => v.id.kind === "youtube#video")
-        .map(v => (
-          {
-              id: v.id.videoId,
-              title: v.snippet.title,
-              image: v.snippet.thumbnails.medium.url
-          }
-      ))
+      const videos = YoutubeUtil.extractVideos(response.data)
 
       console.log("Loaded " + videos.length + " videos")
 
