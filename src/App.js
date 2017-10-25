@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom'
 import MenuBar from './components/MenuBar'
 import VideoList from './components/VideoList'
 import VideoPlayer from './components/VideoPlayer'
@@ -58,14 +59,24 @@ class App extends Component<void, State> {
 
     return (
       <div>
-        <MenuBar onSearch={(value: string) => { this.search(value) }} />
 
         <BrowserRouter>
-          <Switch>
-            <Route exact path='/'
-              render={() => <VideoList videos={this.state.videos}/>} />
-            <Route exact path='/detail/:id' component={VideoPlayer} />
-          </Switch>
+          <div>
+
+            <Route render={ (context: ContextRouter) =>
+              <MenuBar onSearch={(value: string) => {
+                  this.search(value)
+                  context.history.push('/')
+                }} />
+            } />
+
+            <Switch>
+              <Route exact path='/'
+                render={() => <VideoList videos={this.state.videos}/>} />
+              <Route exact path='/detail/:id' component={VideoPlayer} />
+            </Switch>
+
+          </div>
         </BrowserRouter>
 
       </div>
