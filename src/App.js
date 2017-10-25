@@ -10,7 +10,8 @@ import type { Video } from './components/types'
 import axios from 'axios'
 
 type State = {
-  videos: Array<Video>
+  videos: Array<Video>,
+  loading: boolean
 };
 
 class App extends Component<void, State> {
@@ -19,7 +20,8 @@ class App extends Component<void, State> {
     super(props)
 
     this.state = {
-      videos: []
+      videos: [],
+      loading: false
     }
   }
 
@@ -30,6 +32,7 @@ class App extends Component<void, State> {
     const promise = axios.get(url)
 
     console.log("Loading videos...")
+    this.setState({ loading: true })
   
     promise.then(response => {
   
@@ -47,7 +50,7 @@ class App extends Component<void, State> {
 
       console.log("Loaded " + videos.length + " videos")
 
-      this.setState({ videos: videos })
+      this.setState({ videos: videos, loading: false })
     })
   
     promise.catch(error => console.log("ERROR!!", error))
@@ -72,7 +75,15 @@ class App extends Component<void, State> {
 
             <Switch>
               <Route exact path='/'
-                render={() => <VideoList videos={this.state.videos}/>} />
+                render={() => {
+
+                  if (this.state.loading) {
+                    return <div>Loading...</div>
+                  } else {
+                    return <VideoList videos={this.state.videos}/>
+                  }
+                  
+                }} />
               <Route exact path='/detail/:id' component={VideoPlayer} />
             </Switch>
 
